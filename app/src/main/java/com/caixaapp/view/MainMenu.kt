@@ -14,7 +14,6 @@ import com.caixaapp.databinding.MainMenuBinding
 import com.caixaapp.repository.RoomTransactionRepository
 import com.caixaapp.util.DatabaseProvider
 import com.caixaapp.util.ExportService
-import com.caixaapp.util.JsonUtils
 import java.io.File
 import java.io.FileOutputStream
 import java.text.NumberFormat
@@ -36,7 +35,7 @@ class MainMenu : AppCompatActivity() {
         setContentView(binding.root)
 
         val dao = DatabaseProvider.getDatabase(this).transactionDao()
-        controller = TransactionController(RoomTransactionRepository(dao))
+        controller = TransactionController(RoomTransactionRepository(dao), this)
         exportService = ExportService()
 
         setupButtonClickListeners()
@@ -50,13 +49,12 @@ class MainMenu : AppCompatActivity() {
     private fun updateDashboardData() {
         lifecycleScope.launch {
             val personId = TransactionController.FAMILIA_ID 
-            val rateio = JsonUtils.loadRateio(this@MainMenu)
             val calendar = Calendar.getInstance()
             val currentMonth = calendar.get(Calendar.MONTH) + 1
             val currentYear = calendar.get(Calendar.YEAR)
 
             try {
-                val result = controller.getSummaryForCurrentMonth(personId, rateio, currentMonth, currentYear)
+                val result = controller.getSummaryForCurrentMonth(personId, currentMonth, currentYear)
 
                 runOnUiThread {
                     val monthName = SimpleDateFormat("MMMM", Locale("pt", "BR")).format(calendar.time)

@@ -1,16 +1,23 @@
 package com.caixaapp.controller
 
+import android.content.Context
 import com.caixaapp.model.MonthlySummary
+import com.caixaapp.model.Person
 import com.caixaapp.model.Transaction
 import com.caixaapp.model.TransactionType
 import com.caixaapp.repository.TransactionRepository
 import com.caixaapp.util.DateUtils
+import com.caixaapp.util.JsonUtils
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class TransactionController(
-    private val repository: TransactionRepository
+    private val repository: TransactionRepository,
+    private val context: Context
 ) {
+    val people: List<Person> = JsonUtils.loadPeople(context)
+    private val rateio: Map<String, Double> = JsonUtils.loadRateio(context)
+
     suspend fun add(transaction: Transaction) {
         repository.add(transaction)
     }
@@ -19,13 +26,13 @@ class TransactionController(
         repository.delete(transaction)
     }
 
-    suspend fun getStatement(personId: String, rateio: Map<String, Double>): StatementResult {
+    suspend fun getStatement(personId: String): StatementResult {
         val items = buildAdjustedTransactions(personId, rateio)
         val saldo = calculateSaldo(items)
         return StatementResult(items, saldo)
     }
 
-    suspend fun getMonthlySummary(personId: String, rateio: Map<String, Double>): MonthlySummaryResult {
+    suspend fun getMonthlySummary(personId: String): MonthlySummaryResult {
         val adjusted = buildAdjustedTransactions(personId, rateio)
         val now = LocalDate.now()
         val months = (-2..4).map { now.minusMonths(it.toLong()).withDayOfMonth(1) }.reversed()
@@ -42,7 +49,7 @@ class TransactionController(
         return MonthlySummaryResult(summaries, totalCredito, totalDebito, totalCredito - totalDebito)
     }
 
-    suspend fun getSummaryForCurrentMonth(personId: String, rateio: Map<String, Double>, month: Int, year: Int): MonthlySummaryResult {
+    suspend fun getSummaryForCurrentMonth(personId: String, month: Int, year: Int): MonthlySummaryResult {
         val adjusted = buildAdjustedTransactions(personId, rateio)
         val monthDate = LocalDate.of(year, month, 1)
 
@@ -59,7 +66,7 @@ class TransactionController(
         return repository.getAll()
     }
 
-    private suspend fun buildStatementItems(personId: String, rateio: Map<String, Double>): List<Transaction> {
+    private suspend fun buildStatementItems(personId: String): List<Transaction> {
         return buildAdjustedTransactions(personId, rateio).sortedByDescending { it.data }
     }
 

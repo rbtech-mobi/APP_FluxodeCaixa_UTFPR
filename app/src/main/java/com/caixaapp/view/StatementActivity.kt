@@ -14,14 +14,12 @@ import com.caixaapp.databinding.ActivityStatementBinding
 import com.caixaapp.model.Person
 import com.caixaapp.repository.RoomTransactionRepository
 import com.caixaapp.util.DatabaseProvider
-import com.caixaapp.util.JsonUtils
 import java.text.NumberFormat
 import java.util.Locale
 import kotlinx.coroutines.launch
 
 class StatementActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStatementBinding
-    private lateinit var people: List<Person>
     private lateinit var adapter: StatementAdapter
     private lateinit var controller: TransactionController
     private val formatter = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
@@ -34,9 +32,8 @@ class StatementActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val dao = DatabaseProvider.getDatabase(this).transactionDao()
-        controller = TransactionController(RoomTransactionRepository(dao))
+        controller = TransactionController(RoomTransactionRepository(dao), this)
 
-        people = JsonUtils.loadPeople(this)
         setupRecycler()
         setupSpinner()
 
@@ -57,7 +54,7 @@ class StatementActivity : AppCompatActivity() {
     }
 
     private fun getPeopleForSpinner(): List<Person> {
-        return (listOf(Person("00", "FAMILIA", "Conta Familiar")) + people).distinctBy { it.id }
+        return (listOf(Person("00", "FAMILIA", "Conta Familiar")) + controller.people).distinctBy { it.id }
     }
 
     private fun setupSpinner() {
@@ -80,10 +77,8 @@ class StatementActivity : AppCompatActivity() {
         val selectedPerson = getPeopleForSpinner().find { it.descricao == selectedPersonDescription }
         val personId = selectedPerson?.id ?: TransactionController.FAMILIA_ID
 
-        val rateio = JsonUtils.loadRateio(this)
-
         lifecycleScope.launch {
-            val result = controller.getStatement(personId, rateio)
+            val result = controller.getStatement(personId)
             runOnUiThread {
                 adapter.update(result.items.sortedByDescending { it.data })
                 binding.statementSummary.text = "Saldo total: ${formatter.format(result.saldo)}"

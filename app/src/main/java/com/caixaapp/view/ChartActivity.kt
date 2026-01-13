@@ -12,7 +12,6 @@ import com.caixaapp.databinding.ActivityChartBinding
 import com.caixaapp.model.Person
 import com.caixaapp.repository.RoomTransactionRepository
 import com.caixaapp.util.DatabaseProvider
-import com.caixaapp.util.JsonUtils
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -22,7 +21,6 @@ import kotlinx.coroutines.launch
 
 class ChartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChartBinding
-    private lateinit var people: List<Person>
     private lateinit var controller: TransactionController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +30,8 @@ class ChartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val dao = DatabaseProvider.getDatabase(this).transactionDao()
-        controller = TransactionController(RoomTransactionRepository(dao))
+        controller = TransactionController(RoomTransactionRepository(dao), this)
 
-        people = JsonUtils.loadPeople(this)
         setupSpinner()
         setupChart()
 
@@ -42,7 +39,7 @@ class ChartActivity : AppCompatActivity() {
     }
 
     private fun getPeopleForSpinner(): List<Person> {
-        return (listOf(Person("00", "FAMILIA", "Conta Familiar")) + people).distinctBy { it.id }
+        return (listOf(Person("00", "FAMILIA", "Conta Familiar")) + controller.people).distinctBy { it.id }
     }
 
     private fun setupSpinner() {
@@ -81,8 +78,7 @@ class ChartActivity : AppCompatActivity() {
         val personId = selectedPerson?.id ?: TransactionController.FAMILIA_ID
 
         lifecycleScope.launch {
-            val rateio = JsonUtils.loadRateio(this@ChartActivity)
-            val summaryResult = controller.getMonthlySummary(personId, rateio)
+            val summaryResult = controller.getMonthlySummary(personId)
             val summaries = summaryResult.summaries
 
             val creditEntries = ArrayList<BarEntry>()
