@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">CaixaAPP</string>
+    
+    <!-- Main Menu -->
+    <string name="menu_welcome">Olá, Bem-vindo</string>
+    <string name="menu_dashboard_title">CaixaAPP Dashboard</string>
+    <string name="total_balance">Saldo Total</string>
+    <string name="income_label">Receitas</string>
+    <string name="expense_label">Despesas</string>
+    <string name="quick_actions">Ações Rápidas</string>
+    <string name="action_new_transaction">Lançar</string>
+    <string name="action_statement">Extrato</string>
+    <string name="action_charts">Gráficos</string>
+    <string name="action_export">Exportar</string>
+    <string name="action_sync">Sincronizar com Nuvem</string>
+    <string name="action_exit">Sair do App</string>
+    
+    <!-- Transaction -->
+    <string name="new_transaction_title">Novo Lançamento</string>
+    <string name="transaction_value_hint">Valor do lançamento</string>
+    <string name="transaction_type_income">Receita</string>
+    <string name="transaction_type_expense">Despesa</string>
+    <string name="transaction_date_hint">Data</string>
+    <string name="transaction_person_label">Conta / Pessoa</string>
+    <string name="transaction_description_hint">Descrição</string>
+    <string name="action_save_transaction">Confirmar Lançamento</string>
+    <string name="action_cancel">Cancelar</string>
+    
+    <!-- Statement -->
+    <string name="statement_title">Extrato Detalhado</string>
+    <string name="balance_label">Saldo Atual</string>
+    <string name="month_income_prefix">Entradas: %s</string>
+    <string name="month_expense_prefix">Saídas: %s</string>
+    
+    <!-- Charts -->
+    <string name="projected_flow_title">Fluxo de Caixa Projetado</string>
+    <string name="current_balance_label">Saldo Atual</string>
+    <string name="projected_balance_label">Previsão 30 Dias</string>
+    <string name="trend_chart_title">Tendência de Saldo</string>
+    <string name="upcoming_vencimentos">Próximos Vencimentos</string>
+    
+    <!-- Messages -->
+    <string name="msg_export_empty">Não há lançamentos para exportar</string>
+    <string name="msg_export_error">Erro ao exportar: %s</string>
+    <string name="msg_transaction_saved">Lançamento salvo</string>
+    <string name="msg_fill_required">Preencha todos os campos</string>
+    <string name="sbuttom">acessar_menu</string>
+    <string name="seclogin_dis">Login Seguro Desabilitado</string>
+    <string name="seclogin_enb">Login Seguro Habilitado</string>
+</resources>

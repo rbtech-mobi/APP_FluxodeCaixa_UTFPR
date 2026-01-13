@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "32a62ce5b186793e30093ae0bf0d3de6",
+    "entities": [
+      {
+        "tableName": "transactions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `valor` REAL NOT NULL, `descricao` TEXT NOT NULL, `data` INTEGER NOT NULL, `tipo` TEXT NOT NULL, `pessoaId` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valor",
+            "columnName": "valor",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pessoaId",
+            "columnName": "pessoaId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32a62ce5b186793e30093ae0bf0d3de6')"
+    ]
+  }
+}

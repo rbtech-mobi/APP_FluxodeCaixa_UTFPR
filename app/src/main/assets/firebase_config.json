@@ -1,0 +1,5 @@
+{
+  "provider": "firebase",
+  "databaseUrl": "https://your-project-id.firebaseio.com",
+  "enabled": false
+}

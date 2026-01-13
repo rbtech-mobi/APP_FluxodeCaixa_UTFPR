@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- 1. Barra de Controle  -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/filterControlCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/primary"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <Spinner
+                android:id="@+id/filterSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/surface" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 2. Lista de Transações -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statementRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterControlCard"
+        tools:listitem="@layout/item_statement" />
+
+    <!-- 4. Barra de Saldo Fixo (Bottom) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomBalanceBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/surface"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent"
+        android:layout_margin="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/labelBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saldo Atual"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/statementSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="R$ 0,00"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/labelBalance" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/backToMenuButton"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menu"
+                app:icon="@android:drawable/ic_menu_revert"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

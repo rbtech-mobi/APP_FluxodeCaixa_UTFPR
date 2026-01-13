@@ -1,0 +1,20 @@
+<resources>
+    <color name="primary">#2563EB</color>
+    <color name="primary_dark">#1D4ED8</color>
+    <color name="accent">#3B82F6</color>
+
+    <color name="background">#F8FAFC</color>
+    <color name="surface">#FFFFFF</color>
+
+    <color name="text_primary">#1E293B</color>
+    <color name="text_secondary">#64748B</color>
+
+    <color name="income">#10B981</color>
+    <color name="expense">#EF4444</color>
+
+    <!-- Keep old names if used in other places temporarily to avoid build errors -->
+    <color name="green_credit">#10B981</color>
+    <color name="red_debit">#EF4444</color>
+    <color name="teal_200">#93C5FD</color>
+    <color name="teal_700">#2563EB</color>
+</resources>
