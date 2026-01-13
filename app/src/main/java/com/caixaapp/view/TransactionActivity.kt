@@ -5,25 +5,26 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.caixaapp.controller.TransactionController
 import com.caixaapp.databinding.ActivityTransactionBinding
 import com.caixaapp.model.Person
 import com.caixaapp.model.Transaction
 import com.caixaapp.model.TransactionType
+import com.caixaapp.repository.RoomTransactionRepository
 import com.caixaapp.util.CurrencyMaskWatcher
+import com.caixaapp.util.DatabaseProvider
 import com.caixaapp.util.DateUtils
-import com.caixaapp.util.JsonUtils
-import com.caixaapp.viewmodel.MainViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.Calendar
+import kotlinx.coroutines.launch
 
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
+    private lateinit var controller: TransactionController
     private lateinit var people: List<Person>
-    private lateinit var viewModel: MainViewModel
     private var selectedDate: LocalDate = LocalDate.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +33,12 @@ class TransactionActivity : AppCompatActivity() {
         binding = ActivityTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        val dao = DatabaseProvider.getDatabase(this).transactionDao()
+        controller = TransactionController(RoomTransactionRepository(dao), this)
+        people = controller.people
 
         binding.backToMenuButton.setOnClickListener { finish() }
 
-        people = JsonUtils.loadPeople(this)
         setupPessoaSpinner()
         setupDatePicker()
         setupTypeSelector()
@@ -111,8 +113,12 @@ class TransactionActivity : AppCompatActivity() {
             pessoaId = personId
         )
 
-        viewModel.addTransaction(transaction)
-        Toast.makeText(this, "Lançamento salvo", Toast.LENGTH_SHORT).show()
-        finish() 
+        lifecycleScope.launch {
+            controller.add(transaction)
+            runOnUiThread {
+                Toast.makeText(this@TransactionActivity, "Lançamento salvo", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
     }
 }
