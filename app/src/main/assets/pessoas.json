@@ -1,5 +1,5 @@
 [
-  { "id": "00", "nome": "FAMILIA", "descricao": "Conta Familiar" },
+  { "id": "00", "nome": "FAMILIA", "descricao": "Rateio Familiar" },
   { "id": "01", "nome": "EU", "descricao": "Conta Pessoal" },
   { "id": "02", "nome": "CONJUGE", "descricao": "Conta do Conjuge" },
   { "id": "03", "nome": "FILHO", "descricao": "Conta(s) do(s) Filho(S/as)" }
