@@ -1,180 +1,49 @@
-Visão do Produto
+Documentação de Encerramento: CaixaAPP (Versão Final)
+1. Visão do Produto
+O CaixaAPP é um ecossistema nativo Android (Kotlin) para gestão financeira familiar. Ele se destaca pela robustez arquitetural (MVC) e pela flexibilidade de configuração. Através de um motor de inteligência que consome dados de arquivos JSON, o app oferece segurança biométrica configurável, rateio dinâmico de despesas e uma interface analítica completa.
 
-O CaixaAPP é um aplicativo Android de controle financeiro pessoal e familiar.
-Ele permite registrar receitas e despesas, classificar lançamentos por pessoa ou família, 
-aplicar rateios automáticos definidos por regras externas e visualizar os dados tanto em 
-formato de extrato quanto em gráficos comparativos ao longo do tempo.
+2. Épicos e Histórias de Usuário (Requisitos Atendidos)
+ÉPICO 1: Segurança e Acesso Seguro (Feature Toggle)
+Objetivo: Garantir a privacidade dos dados através de autenticação nativa.
 
-O foco do produto é clareza financeira, rastreabilidade dos lançamentos e coerência matemática entre telas.
+Estória de Usuário: Como usuário, quero que meu acesso seja protegido por biometria ou senha do sistema, podendo essa função ser alternada conforme as configurações do app.
 
-ÉPICO 1
+Critérios de Aceite (Realizados):
 
-Autenticação e Acesso Seguro
+[X] Integração com o arquivo parametros_app.json: o parâmetro login_seguro (1 para ligado, 0 para desligado) controla dinamicamente a exigência de biometria.
+[X] Uso de autenticação nativa do Android (PIN, Padrão ou Digital).
 
-Objetivo
+ÉPICO 2: Cadastro e Lançamentos Financeiros
+Objetivo: Permitir a entrada de dados de forma simples e validada.
 
-Garantir que apenas o dono do dispositivo tenha acesso aos dados financeiros, usando mecanismos nativos do Android.
+Estória de Usuário: Como usuário, quero registrar minhas movimentações financeiras com precisão para manter meu histórico atualizado.
 
-Histórias de Usuário
+Critérios de Aceite (Realizados):
 
-Como usuário
-Quero acessar o aplicativo usando a autenticação do meu próprio celular
-Para garantir que meus dados financeiros não sejam acessados por terceiros
+[X] Tela de Lançamento: Campos para Descrição, Valor (R$), Data e Tipo (Receita/Despesa).
+[X] DatePicker (Plus): Implementação de calendário para seleção amigável da data.
+[X] Consistência de Dados: Validação de campos obrigatórios e tratamento de exceções em tipos numéricos para evitar crashes.
 
-Critérios de aceite
-O app deve solicitar autenticação biométrica ao iniciar
-Caso o dispositivo não tenha biometria, deve usar PIN ou senha do sistema
-Após autenticação bem sucedida, o usuário é direcionado para a tela de lançamento
-Falhas de autenticação não devem permitir acesso parcial ao app
+ÉPICO 3: Persistência e Arquitetura (MVC)
+Objetivo: Garantir a integridade dos dados e a manutenibilidade do código.
 
-ÉPICO 2
+Estória de Usuário: Como desenvolvedor, quero que o código seja organizado em camadas para facilitar futuras expansões.
 
-Cadastro de Lançamentos Financeiros
+Critérios de Aceite (Realizados):
 
-Objetivo
+[X] Persistência: Implementação de banco de dados local SQLite.
+[X] Organização: Uso de DatabaseHelper para infraestrutura e LancamentoDAO para a lógica de acesso a dados (CRUD).
+[X] Navegabilidade: Fluxo de navegação consistente e intuitivo entre as telas de Cadastro, Extrato e Gráficos.
 
-Permitir que o usuário registre entradas e saídas financeiras de forma simples, consistente e validada.
+ÉPICO 4: Extrato e Inteligência Analítica
+Objetivo: Transformar registros em informações úteis para o planejamento familiar.
 
-Histórias de Usuário
+Estória de Usuário: Como usuário, quero visualizar meu saldo e meus gastos categorizados por cores e gráficos.
 
-Como usuário
-Quero registrar um lançamento financeiro com valor, descrição, data, tipo e pessoa
-Para manter controle detalhado das minhas finanças
+Critérios de Aceite (Realizados):
 
-Critérios de aceite
-Valor deve ser numérico e maior que zero
-Descrição não pode estar vazia
-Data deve ser obrigatória e selecionável via calendário
-Tipo deve permitir escolher crédito ou débito
-Pessoa deve ser selecionada a partir de uma lista carregada de arquivo JSON local
-Ao salvar, o lançamento deve ser persistido no banco configurado
+[X] Tela de Extrato: Listagem completa de todos os registros persistidos.
+[X] Diferenciação Visual (Plus): Adapter customizado exibindo Receitas em VERDE e Despesas em VERMELHO.
+[X] Cálculo de Saldo (Plus): Exibição da soma dinâmica (Receitas - Despesas) no cabeçalho do extrato.
+[X] Gráficos e JSON: Motor de leitura de assets para rateio familiar e exibição de gráficos via MPAndroidChart.
 
-ÉPICO 3
-
-Gestão de Pessoas e Rateio Familiar
-
-Objetivo
-
-Permitir classificação de lançamentos por pessoa e cálculo automático de rateios familiares.
-
-Histórias de Usuário
-
-Como usuário
-Quero classificar lançamentos como familiares ou pessoais
-Para que o sistema calcule automaticamente minha parte nos gastos e ganhos da família
-
-Critérios de aceite
-A lista de pessoas deve ser carregada de um JSON local
-As regras de rateio devem ser lidas de um segundo JSON
-Lançamentos da família não pertencem diretamente a indivíduos
-Ao visualizar extratos individuais, o sistema deve aplicar o rateio correto
-O rateio deve funcionar tanto para créditos quanto para débitos
-O rateio não deve ser salvo no banco, apenas calculado em tempo de consulta
-
-ÉPICO 4
-
-Extrato Financeiro
-
-Objetivo
-
-Exibir os lançamentos financeiros de forma organizada, filtrável e matematicamente consistente.
-
-Histórias de Usuário
-
-Como usuário
-Quero visualizar um extrato financeiro filtrado por pessoa ou família
-Para entender meus gastos, ganhos e saldo final
-
-Critérios de aceite
-O extrato deve permitir seleção de pessoa ou família
-Quando filtrado por pessoa, deve incluir lançamentos pessoais e rateios familiares
-Quando filtrado por família, deve exibir apenas lançamentos familiares com valor integral
-Os lançamentos devem exibir descrição, data, tipo e valor
-A lista deve ser ordenada por data decrescente no formato DD/MM/YYYY
-Créditos devem ser visualmente diferenciados de débitos
-O saldo final deve ser exibido com base nos valores apresentados
-
-ÉPICO 5
-
-Gráficos de Análise Temporal
-
-Objetivo
-
-Fornecer uma visão analítica do fluxo financeiro ao longo do tempo.
-
-Histórias de Usuário
-
-Como usuário
-Quero visualizar um gráfico comparando créditos e débitos dos últimos seis meses
-Para entender tendências e resultados financeiros recentes
-
-Critérios de aceite
-O gráfico deve considerar exatamente os últimos seis meses
-Os dados devem respeitar as mesmas regras de filtro e rateio do extrato
-Cada mês deve exibir o total de créditos e débitos
-O eixo horizontal deve representar os meses
-O eixo vertical deve representar valores monetários
-Ao final do gráfico deve ser exibido o resultado líquido dos seis meses
-O cálculo do resultado líquido deve seguir a mesma lógica do extrato
-
-ÉPICO 6
-
-Persistência e Arquitetura
-
-Objetivo
-
-Garantir organização de código, facilidade de manutenção e independência de banco.
-
-Histórias de Usuário
-
-Como desenvolvedor
-Quero uma arquitetura clara separando modelo, controle e visualização
-Para facilitar manutenção, testes e evolução do app
-
-Critérios de aceite
-O projeto deve seguir MVC
-A persistência deve ser acessada via interface de repositório
-Deve ser possível alternar entre Room e Firebase sem alterar a UI
-Nenhuma lógica de negócio deve ficar na camada de visualização
-
-Backlog de Telas
-
-Tela de Login
-Tela de Lançamento
-Tela de Extrato
-Tela de Gráfico Comparativo
-Diálogos auxiliares como DatePicker e mensagens de validação
-
-Backlog Técnico
-
-Leitura de JSON local em assets
-Mapeamento de modelos de domínio
-Implementação de repositório abstrato
-Implementação Room
-Implementação Firebase
-Cálculo de rateio dinâmico
-Agregação mensal para gráficos
-Ordenação e formatação de datas
-RecyclerView com Adapter customizado
-Integração de biblioteca de gráficos
-Tratamento de estados vazios e erros
-
-Backlog de Qualidade e Testes
-
-Testes unitários para regras de rateio
-Testes unitários para cálculo de saldo
-Testes unitários para agregação mensal
-Testes instrumentados para navegação entre telas
-Testes de validação de formulário
-Testes de leitura e parsing de JSON
-Testes manuais exploratórios de fluxo completo
-
-Padrões sugeridos
-JUnit para lógica de negócio
-Mockito para dependências
-Espresso para testes de UI
-Separação clara de código testável
-
-Backlog de Build e Deploy
-
-Configuração de build em modo release
