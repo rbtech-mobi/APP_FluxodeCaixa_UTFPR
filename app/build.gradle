@@ -12,8 +12,8 @@ android {
         applicationId 'com.caixaapp'
         minSdk 27
         targetSdk 35
-        versionCode 8
-        versionName 'Beta_0.3.0'
+        versionCode 9
+        versionName 'PreRelease.09'
         // tell KSP where to put the schema
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")

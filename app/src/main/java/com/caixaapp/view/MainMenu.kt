@@ -4,21 +4,22 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
+import com.caixaapp.R
 import com.caixaapp.controller.TransactionController
 import com.caixaapp.databinding.MainMenuBinding
+import com.caixaapp.model.Person
 import com.caixaapp.repository.RoomTransactionRepository
 import com.caixaapp.util.DatabaseProvider
 import com.caixaapp.util.ExportService
 import java.io.File
 import java.io.FileOutputStream
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 import kotlinx.coroutines.launch
 
@@ -38,6 +39,7 @@ class MainMenu : AppCompatActivity() {
         controller = TransactionController(RoomTransactionRepository(dao), this)
         exportService = ExportService()
 
+        setupSpinner()
         setupButtonClickListeners()
     }
 
@@ -46,32 +48,40 @@ class MainMenu : AppCompatActivity() {
         updateDashboardData()
     }
 
-    private fun updateDashboardData() {
-        lifecycleScope.launch {
-            val personId = TransactionController.FAMILIA_ID 
-            val calendar = Calendar.getInstance()
-            val currentMonth = calendar.get(Calendar.MONTH) + 1
-            val currentYear = calendar.get(Calendar.YEAR)
+    private fun getPeopleForSpinner(): List<Person> {
+        return controller.people
+    }
 
+    private fun setupSpinner() {
+        val personDescriptions = getPeopleForSpinner().map { it.descricao }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, personDescriptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.filterSpinner.adapter = adapter
+
+        binding.filterSpinner.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
+                updateDashboardData()
+            }
+            override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
+        }
+    }
+
+    private fun updateDashboardData() {
+        val selectedPersonDescription = binding.filterSpinner.selectedItem as String
+        val selectedPerson = getPeopleForSpinner().find { it.descricao == selectedPersonDescription }
+        val personId = selectedPerson?.id ?: TransactionController.FAMILIA_ID
+        
+        lifecycleScope.launch {
             try {
-                val result = controller.getSummaryForCurrentMonth(personId, currentMonth, currentYear)
+                val result = controller.getStatement(personId)
 
                 runOnUiThread {
-                    val monthName = SimpleDateFormat("MMMM", Locale("pt", "BR")).format(calendar.time)
-                    binding.textCurrentMonth.text = "Movimentação do mês de ${monthName.replaceFirstChar { it.uppercase() }}"
-
-                    val totalBalance = result.saldo
-                    binding.textTotalBalance.text = currencyFormatter.format(totalBalance)
-                    
-                    if (totalBalance == 0.0) {
-                        Log.d("DEBUG_SALDO", "Total calculado: 0. Visão FAMÍLIA (Agregada)")
-                    }
-                    
-                    binding.textIncomeValue.text = currencyFormatter.format(result.totalCredito)
-                    binding.textExpenseValue.text = currencyFormatter.format(result.totalDebito)
+                    binding.textTotalBalance.text = currencyFormatter.format(result.saldo)
+                    binding.textIncomeValue.text = currencyFormatter.format(result.items.filter { it.tipo == com.caixaapp.model.TransactionType.CREDITO }.sumOf { it.valor })
+                    binding.textExpenseValue.text = currencyFormatter.format(result.items.filter { it.tipo == com.caixaapp.model.TransactionType.DEBITO }.sumOf { it.valor })
                 }
             } catch (e: Exception) {
-                Log.e("DASHBOARD_ERROR", "Erro ao carregar dados", e)
+                Log.e("DASHBOARD_ERROR", getString(R.string.error_general), e)
             }
         }
     }
@@ -103,9 +113,9 @@ class MainMenu : AppCompatActivity() {
     }
 
     private fun showExportOptionsDialog() {
-        val options = arrayOf("PDF", "XML", "JSON")
+        val options = arrayOf(getString(R.string.export_format_pdf), getString(R.string.export_format_xml), getString(R.string.export_format_json))
         AlertDialog.Builder(this)
-            .setTitle("Escolha o formato de exportação")
+            .setTitle(getString(R.string.dialog_export_title))
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> handleExport("pdf")
@@ -120,7 +130,7 @@ class MainMenu : AppCompatActivity() {
         lifecycleScope.launch {
             val transactions = controller.getAllTransactions()
             if (transactions.isEmpty()) {
-                Toast.makeText(this@MainMenu, "Não há lançamentos para exportar", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainMenu, getString(R.string.msg_export_empty), Toast.LENGTH_SHORT).show()
                 return@launch
             }
 
@@ -141,7 +151,7 @@ class MainMenu : AppCompatActivity() {
                 }
                 shareFile(file, format)
             } catch (e: Exception) {
-                Toast.makeText(this@MainMenu, "Erro ao exportar: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainMenu, getString(R.string.msg_export_error, e.message), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -159,14 +169,14 @@ class MainMenu : AppCompatActivity() {
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        startActivity(Intent.createChooser(intent, "Compartilhar $format"))
+        startActivity(Intent.createChooser(intent, getString(R.string.share_title, format)))
     }
 
     private fun showFutureFeatureDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Funcionalidade Futura")
-            .setMessage("Sincronização com API (pós-aula API).")
-            .setPositiveButton("OK") { dialog, _ ->
+            .setTitle(getString(R.string.dialog_future_feature_title))
+            .setMessage(getString(R.string.dialog_future_feature_message))
+            .setPositiveButton(getString(R.string.dialog_button_ok)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()

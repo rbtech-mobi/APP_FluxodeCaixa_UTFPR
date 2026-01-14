@@ -57,21 +57,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
-            
-            <TextView
-                android:id="@+id/textCurrentMonth"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Movimentação do mês de..."
-                android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_by_label"
+                    android:textColor="@color/text_primary"/>
+
+                <Space
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content"/>
+
+                <Spinner
+                    android:id="@+id/filterSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="48dp"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="@string/total_balance"
+                android:layout_marginTop="16dp"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp" />
 
@@ -81,10 +97,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="R$ 0,00"
                 android:textColor="@color/text_primary"
                 android:textSize="32sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="R$ 1.250,00" />
 
             <View
                 android:layout_width="match_parent"
@@ -115,9 +131,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="+ R$ 0,00"
                         android:textColor="@color/income"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="+ R$ 2.000,00" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,9 +154,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="- R$ 0,00"
                         android:textColor="@color/expense"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="- R$ 750,00" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -219,10 +235,10 @@
                 app:cardBackgroundColor="@color/surface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                app:layout_constraintBottom_toBottomOf="@id/cardNewTransaction"
+                app:layout_constraintBottom_toBottomOf="@+id/cardNewTransaction"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cardNewTransaction"
-                app:layout_constraintTop_toTopOf="@id/cardNewTransaction">
+                app:layout_constraintStart_toEndOf="@+id/cardNewTransaction"
+                app:layout_constraintTop_toTopOf="@+id/cardNewTransaction">
 
                 <LinearLayout
                     android:id="@+id/buttonGoToStatement"
@@ -263,7 +279,7 @@
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toStartOf="@+id/cardExport"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardNewTransaction">
+                app:layout_constraintTop_toBottomOf="@+id/cardNewTransaction">
 
                 <LinearLayout
                     android:id="@+id/buttonGoToChart"
@@ -301,10 +317,10 @@
                 app:cardBackgroundColor="@color/surface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                app:layout_constraintBottom_toBottomOf="@id/cardCharts"
+                app:layout_constraintBottom_toBottomOf="@+id/cardCharts"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cardCharts"
-                app:layout_constraintTop_toTopOf="@id/cardCharts">
+                app:layout_constraintStart_toEndOf="@+id/cardCharts"
+                app:layout_constraintTop_toTopOf="@+id/cardCharts">
 
                 <LinearLayout
                     android:id="@+id/buttonExport"

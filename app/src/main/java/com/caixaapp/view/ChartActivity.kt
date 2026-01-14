@@ -91,11 +91,10 @@ class ChartActivity : AppCompatActivity() {
                 labels.add(summary.monthLabel)
             }
 
-            val creditDataSet = BarDataSet(creditEntries, "Crédito").apply {
+            val creditDataSet = BarDataSet(creditEntries, getString(R.string.label_credit)).apply {
                 color = Color.GREEN
             }
-            
-            val debitDataSet = BarDataSet(debitEntries, "Débito").apply {
+            val debitDataSet = BarDataSet(debitEntries, getString(R.string.label_debit)).apply {
                 color = Color.RED
             }
 

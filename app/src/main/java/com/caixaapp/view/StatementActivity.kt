@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.caixaapp.R
 import com.caixaapp.adapter.StatementAdapter
 import com.caixaapp.controller.TransactionController
 import com.caixaapp.databinding.ActivityStatementBinding
@@ -81,7 +82,7 @@ class StatementActivity : AppCompatActivity() {
             val result = controller.getStatement(personId)
             runOnUiThread {
                 adapter.update(result.items.sortedByDescending { it.data })
-                binding.statementSummary.text = "Saldo total: ${formatter.format(result.saldo)}"
+                binding.statementSummary.text = getString(R.string.statement_total_balance, formatter.format(result.saldo))
             }
         }
     }

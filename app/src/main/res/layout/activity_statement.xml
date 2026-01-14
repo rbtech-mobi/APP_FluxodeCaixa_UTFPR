@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <!-- 1. Header Section -->
     <View
         android:id="@+id/headerBackground"
         android:layout_width="match_parent"
@@ -37,7 +36,6 @@
         app:layout_constraintStart_toStartOf="@id/menuTitle"
         app:layout_constraintTop_toBottomOf="@id/menuTitle" />
 
-    <!-- Filter Card (Overlapping) -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/filterCard"
         android:layout_width="0dp"
@@ -62,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/filter_by_label"
-                android:textColor="@color/text_secondary" />
+                android:textColor="@color/text_primary" />
 
             <Space
                 android:layout_width="8dp"
@@ -78,7 +76,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- 2. Lista de Transações -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/statementRecycler"
         android:layout_width="match_parent"
@@ -91,7 +88,6 @@
         app:layout_constraintTop_toBottomOf="@+id/filterCard"
         tools:listitem="@layout/item_statement" />
 
-    <!-- 4. Barra de Saldo Fixo (Bottom) -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottomBalanceBar"
         android:layout_width="match_parent"
@@ -113,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/balance_label"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/text_primary"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -123,19 +119,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:text="R$ 0,00"
                 android:textColor="@color/text_primary"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/labelBalance" />
+                app:layout_constraintTop_toBottomOf="@+id/labelBalance"
+                tools:text="R$ 0.000,00" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/backToMenuButton"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Menu"
+                android:text="@string/action_menu"
                 app:icon="@android:drawable/ic_menu_revert"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

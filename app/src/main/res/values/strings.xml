@@ -1,20 +1,38 @@
 <resources>
     <string name="app_name">CaixaAPP</string>
-    
+
+    <!-- General Actions -->
+    <string name="action_back">Voltar</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_exit">Sair do App</string>
+    <string name="action_access_menu">Acessar Menu</string>
+
     <!-- Main Menu -->
     <string name="menu_welcome">Olá, Bem-vindo</string>
     <string name="menu_dashboard_title">CaixaAPP Dashboard</string>
     <string name="total_balance">Saldo Total</string>
     <string name="income_label">Receitas</string>
     <string name="expense_label">Despesas</string>
+    <string name="dashboard_month_summary">Movimentação do mês de %1$s</string>
     <string name="quick_actions">Ações Rápidas</string>
     <string name="action_new_transaction">Lançar</string>
     <string name="action_statement">Extrato</string>
     <string name="action_charts">Gráficos</string>
+
+    <!-- Export -->
     <string name="action_export">Exportar</string>
+    <string name="dialog_export_title">Escolha o formato de exportação</string>
+    <string name="export_format_pdf">PDF</string>
+    <string name="export_format_xml">XML</string>
+    <string name="export_format_json">JSON</string>
+    <string name="share_title">Compartilhar %1$s</string>
+
+    <!-- Sync -->
     <string name="action_sync">Sincronizar com Nuvem</string>
-    <string name="action_exit">Sair do App</string>
-    
+    <string name="dialog_future_feature_title">Funcionalidade Futura</string>
+    <string name="dialog_future_feature_message">Sincronização com API (pós-aula API).</string>
+
     <!-- Transaction -->
     <string name="new_transaction_title">Novo Lançamento</string>
     <string name="transaction_value_hint">Valor do lançamento</string>
@@ -24,35 +42,44 @@
     <string name="transaction_person_label">Conta / Pessoa</string>
     <string name="transaction_description_hint">Descrição</string>
     <string name="action_save_transaction">Confirmar Lançamento</string>
-    <string name="action_cancel">Cancelar</string>
-    
+    <string name="datepicker_title">Selecione a Data</string>
+
     <!-- Statement -->
     <string name="statement_title">Extrato Detalhado</string>
     <string name="statement_full_title">EXTRATO COMPLETO</string>
     <string name="filter_by_label">Filtrar por:</string>
     <string name="balance_label">Saldo Atual</string>
-    <string name="month_income_prefix">Entradas: %s</string>
-    <string name="month_expense_prefix">Saídas: %s</string>
-    
+    <string name="statement_total_balance">Saldo total: %1$s</string>
+    <string name="dialog_delete_title">Apagar Lançamento</string>
+    <string name="dialog_delete_message">Deseja realmente excluir este item?</string>
+
     <!-- Charts -->
-    <string name="projected_flow_title">Fluxo de Caixa Projetado</string>
-    <string name="current_balance_label">Saldo Atual</string>
-    <string name="projected_balance_label">Previsão 30 Dias</string>
     <string name="trend_chart_title">Tendência de Saldo</string>
-    <string name="chart_pie_title">Proporção (Crédito x Débito)</string>
     <string name="all_months">Todos</string>
-    <string name="upcoming_vencimentos">Próximos Vencimentos</string>
-    
-    <!-- General & Login -->
+    <string name="label_credit">Crédito</string>
+    <string name="label_debit">Débito</string>
+
+    <!-- Login -->
     <string name="app_subtitle">Fluxo de Caixa Pessoal</string>
     <string name="login_prompt_text">Clique em Acessar Menu para iniciar.</string>
-    
-    <!-- Messages -->
+    <string name="dialog_auth_title">Autenticação necessária</string>
+    <string name="dialog_auth_subtitle">Use a biometria ou o PIN do dispositivo</string>
+    <string name="seclogin_dis">Login Seguro Desabilitado</string>
+    <string name="seclogin_enb">Login Seguro Habilitado</string>
+
+    <!-- Messages & Errors -->
     <string name="msg_export_empty">Não há lançamentos para exportar</string>
     <string name="msg_export_error">Erro ao exportar: %s</string>
     <string name="msg_transaction_saved">Lançamento salvo</string>
-    <string name="msg_fill_required">Preencha todos os campos</string>
-    <string name="action_access_menu">Acessar Menu</string>
-    <string name="seclogin_dis">Login Seguro Desabilitado</string>
-    <string name="seclogin_enb">Login Seguro Habilitado</string>
+    <string name="error_loading_people">Erro ao carregar os dados de pessoas.</string>
+    <string name="error_invalid_value">Informe um valor válido</string>
+    <string name="error_fill_description">Preencha a descrição</string>
+    <string name="error_general">Erro ao carregar dados</string>
+
+    <!-- Dialog Buttons -->
+    <string name="dialog_button_ok">OK</string>
+    <string name="dialog_button_yes">Sim</string>
+    <string name="dialog_button_no">Não</string>
+    <string name="Example_r_200_00">R$ 200,00</string>
+    <string name="r_0_00">- R$ 0,00</string>
 </resources>

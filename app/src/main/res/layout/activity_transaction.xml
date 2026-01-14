@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Novo Lançamento"
+        android:text="@string/new_transaction_title"
         android:textColor="@color/surface"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Valor do lançamento"
+                    android:text="@string/transaction_value_hint"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp" />
 
@@ -97,7 +97,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Receita" />
+                        android:text="@string/transaction_type_income" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/typeDebit"
@@ -105,7 +105,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Despesa" />
+                        android:text="@string/transaction_type_expense" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <!-- 5. Secondary Fields -->
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:hint="Data">
+                    android:hint="@string/transaction_date_hint">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/dateInput"
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Conta / Pessoa"
+                    android:text="@string/transaction_person_label"
                     android:textColor="@color/text_primary"
                     android:textSize="12sp" />
 
@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:hint="Descrição">
+                    android:hint="@string/transaction_description_hint">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/descriptionInput"
@@ -160,7 +160,7 @@
                     android:layout_height="56dp"
                     android:layout_marginTop="32dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Confirmar Lançamento"
+                    android:text="@string/action_save_transaction"
                     app:cornerRadius="12dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -169,7 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Cancelar"
+                    android:text="@string/action_cancel"
                     android:textColor="@color/text_primary" />
 
             </LinearLayout>

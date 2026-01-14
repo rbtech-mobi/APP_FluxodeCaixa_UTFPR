@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.caixaapp.R
 import com.caixaapp.databinding.ItemStatementBinding
-import com.caixaapp.model.StatementItem
 import com.caixaapp.model.Transaction
 import com.caixaapp.model.TransactionType
 import com.caixaapp.util.DateUtils
@@ -72,10 +71,10 @@ class StatementAdapter(
             // Logic for Delete Button
             binding.buttonDelete.setOnClickListener {
                 AlertDialog.Builder(context)
-                    .setTitle("Apagar Lançamento")
-                    .setMessage("Deseja realmente excluir este item?")
-                    .setPositiveButton("Sim") { _, _ -> onDeleteClick(item) }
-                    .setNegativeButton("Não", null)
+                    .setTitle(R.string.dialog_delete_title)
+                    .setMessage(R.string.dialog_delete_message)
+                    .setPositiveButton(R.string.dialog_button_yes) { _, _ -> onDeleteClick(item) }
+                    .setNegativeButton(R.string.dialog_button_no, null)
                     .show()
             }
         }

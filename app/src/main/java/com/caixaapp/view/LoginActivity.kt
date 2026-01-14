@@ -58,8 +58,8 @@ class LoginActivity : AppCompatActivity() {
     private fun authenticateUser() {
         val executor = ContextCompat.getMainExecutor(this)
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Autenticação necessária")
-            .setSubtitle("Use a biometria ou o PIN do dispositivo")
+            .setTitle(getString(R.string.dialog_auth_title))
+            .setSubtitle(getString(R.string.dialog_auth_subtitle))
             .setAllowedAuthenticators(
                 BiometricManager.Authenticators.BIOMETRIC_STRONG or
                         BiometricManager.Authenticators.DEVICE_CREDENTIAL
