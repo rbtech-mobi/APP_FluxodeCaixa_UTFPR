@@ -1,29 +1,31 @@
+
 Visão Geral das Sprints
 
-Sprint 0
+I) Sprint 0
 Duração: 03-08
 Objetivo: preparar terreno técnico, reuniões iniciais, Épico e Casos de Uso.
 
-Sprint 1
+II) Sprint 1
 Duração: 09 a 11
 Objetivo: funcionalidade principal e regra de negócio completa
 
-Sprint 2
+III) Sprint 2
 Duração: 12 a 15
 Objetivo: consolidação, gráficos, testes e build release
 
-SPRINT 0 – Preparação e Base Técnica
+Entrega planejada : 14 (Noite) ou 15 (prazo máximo).
 
+Resumidamente 
+
+SPRINT 0 – Preparação e Base Técnica
 Data: 03-08
 
 Essa sprint existe para evitar retrabalho. É curta e focada.
 
 Objetivo
-
 Garantir que a base do projeto esteja estável antes de entrar em operação.
 
 Itens do Backlog
-
 • Criação do Épico , Casos de Uso
 • Criação do projeto no Android Studio em Kotlin
 • Definição da estrutura MVC
@@ -41,31 +43,26 @@ Room como default
 • Setup inicial de estilos e layouts base
 
 Entregável da Sprint 0
-
 Projeto compilando
 Arquitetura definida
 JSONs lidos corretamente
 Sem funcionalidade visível ao usuário ainda
 
 SPRINT 1 – Núcleo Funcional do Produto
-
 Datas: 09 a 11
 
 Aqui entra o coração do app. Se isso funcionar, o projeto está salvo.
 
 Objetivo
-
-Entregar o fluxo completo de uso básico com regra de negócio correta.
+Entregar o fluxo completo de uso básico com regra de negócio correta solicitada pelo requerimento principal.
 
 Itens do Backlog
 Autenticação
-
 • Tela de login
 • Autenticação biométrica com fallback
 • Redirecionamento correto após sucesso
 
-Lançamentos
-
+***** Lançamentos
 • Tela de lançamento funcional
 • Validação de campos
 • Spinner de pessoas carregado do JSON
@@ -73,13 +70,11 @@ Lançamentos
 • Diferenciação entre crédito e débito
 
 Regra de Rateio
-
 • Implementação da lógica de rateio familiar
 • Cálculo dinâmico sem persistência
 • Aplicável a crédito e débito
 
-Extrato
-
+***** Extrato
 • Tela de extrato
 • Filtro por pessoa e família
 • Aplicação correta do rateio
@@ -106,9 +101,8 @@ Objetivo
 
 Adicionar visão analítica, garantir estabilidade e gerar o build final.
 
-Itens do Backlog
+Items do Backlog
 Gráficos
-
 • Tela de gráfico comparativo
 • Série temporal dos últimos 6 meses
 • Agregação mensal de crédito e débito
@@ -116,7 +110,6 @@ Gráficos
 • Exibição do resultado líquido final
 
 Qualidade
-
 • Testes unitários da lógica de rateio
 • Testes unitários de agregação mensal
 • Testes básicos de navegação
@@ -128,7 +121,7 @@ Entrega
 • Revisão geral de código
 • Limpeza de logs e código morto
 • Configuração de build em modo release
-• Geração do AAB ou APK assinado
+• Geração do AAB assinado
 • Validação final de execução
 
 Entregável da Sprint 2
@@ -138,18 +131,8 @@ Entrega Final – Dia 15
 Build em modo release
 App funcional
 Regra de negócio consistente entre telas
-Pronto para publicação pelo cliente
+Repo para entrega ao professor
 
-Observação Importante de Gestão
 
-Com esse prazo, não é recomendado:
 
-• Criar múltiplas variações de banco
-• Adicionar features fora do escopo
-• Refatorações estéticas profundas
-• Otimizações prematuras
 
-O foco correto é
-funcionar
-estar matematicamente correto
-estar entregável
